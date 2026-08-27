@@ -45,9 +45,40 @@ Ver [parte-1-refactorizacion-solid/](parte-1-refactorizacion-solid/).
 
 ## Parte 2 — Análisis de Patrones GoF en Spring
 
-Pendiente — ver [parte-2-analisis-gof-spring/documento-analisis.md](parte-2-analisis-gof-spring/documento-analisis.md).
+Investigación sobre el código fuente de Spring Framework
+(`spring-projects/spring-framework` en GitHub) que identifica y analiza tres
+patrones GoF de categorías distintas, conectando cada uno con el problema
+concreto que resuelve en Spring Boot y con el principio SOLID que refuerza.
+
+| # | Patrón | Categoría | Clase en Spring |
+|---|--------|-----------|-----------------|
+| 1 | Singleton | Creacional | `org.springframework.beans.factory.support.DefaultSingletonBeanRegistry` (spring-beans) |
+| 2 | Proxy | Estructural | `org.springframework.aop.framework.JdkDynamicAopProxy` (spring-aop) |
+| 3 | Observer | Comportamiento | `org.springframework.context.event.SimpleApplicationEventMulticaster` (spring-context) |
+
+Ver [parte-2-analisis-gof-spring/documento-analisis.md](parte-2-analisis-gof-spring/documento-analisis.md)
+y los extractos de código en
+[parte-2-analisis-gof-spring/evidencia/](parte-2-analisis-gof-spring/evidencia/).
 
 ## Herramientas utilizadas
 
 - Java 17, Apache Maven, VS Code, Git, GitHub
 - Código fuente de Spring Framework (investigación)
+
+## Conclusiones
+
+Este post-contenido evidenció que los principios SOLID y los patrones de
+diseño GoF son dos caras de la misma disciplina: al refactorizar
+`OrderProcessor` en la Parte 1, la separación de responsabilidades (SRP), la
+extracción de `DiscountStrategy` (OCP, patrón Strategy) y la inyección de
+dependencias por constructor (DIP) produjeron un diseño más flexible y
+comprobable con una simple clase `Main`. Al investigar el código fuente de
+Spring Framework en la Parte 2 se confirmó que ese mismo razonamiento opera a
+escala de framework: Singleton, Proxy y Observer no son ejercicios teóricos,
+sino soluciones reales que Spring usa para gestionar el ciclo de vida de los
+beans, aplicar comportamiento transversal sin acoplar la lógica de negocio, y
+desacoplar la publicación de eventos de sus consumidores. La lección más
+importante para el diseño propio es que un patrón GoF se adopta cuando
+resuelve un problema genuino de acoplamiento o extensibilidad —nunca como
+una decisión prematura o estética— y que reconocerlos en frameworks maduros
+ayuda a diseñar con el mismo nivel de intención en proyectos propios.
