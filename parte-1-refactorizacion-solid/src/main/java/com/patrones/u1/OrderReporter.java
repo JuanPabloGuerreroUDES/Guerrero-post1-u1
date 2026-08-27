@@ -1,0 +1,12 @@
+package com.patrones.u1;
+
+import java.util.List;
+
+// OrderReporter — solo genera reportes (SRP)
+public class OrderReporter {
+
+    public void print(List<String> orders) {
+        System.out.println("=== Reporte de Órdenes ===");
+        orders.forEach(o -> System.out.println("  " + o));
+    }
+}
